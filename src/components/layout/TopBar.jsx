@@ -1,13 +1,4 @@
-import {
-  LayoutDashboard,
-  ListOrdered,
-  Sparkles,
-  Lightbulb,
-  Plus,
-  Moon,
-  Sun,
-  Monitor,
-} from 'lucide-react'
+import { LayoutDashboard, ListOrdered, Sparkles, Lightbulb, Plus } from 'lucide-react'
 import Button from '../ui/Button'
 import Select from '../ui/Select'
 import FieldLabel from '../ui/FieldLabel'
@@ -85,30 +76,16 @@ export default function TopBar({ onAdd }) {
             <div className="grid w-full grid-cols-3 gap-x-2 gap-y-3 md:flex md:w-auto md:flex-wrap md:items-end md:justify-end md:gap-2">
               <div className="flex min-w-0 flex-col gap-1">
                 <FieldLabel htmlFor="zorvyn-theme">Theme</FieldLabel>
-                <div className="flex min-w-0 gap-1.5">
-                  <Select
-                    id="zorvyn-theme"
-                    value={theme}
-                    onChange={(e) => setTheme(e.target.value)}
-                    className="min-w-0 flex-1 text-xs md:w-[8.5rem] md:flex-none md:text-sm"
-                  >
-                    <option value="system">System</option>
-                    <option value="light">Light</option>
-                    <option value="dark">Dark</option>
-                  </Select>
-                  <span
-                    className="hidden h-10 w-9 shrink-0 items-center justify-center rounded-xl border border-violet-200/60 bg-violet-50 text-violet-600 md:flex dark:border-violet-500/20 dark:bg-violet-950/50 dark:text-violet-300"
-                    aria-hidden
-                  >
-                    {theme === 'dark' ? (
-                      <Moon className="h-4 w-4" />
-                    ) : theme === 'light' ? (
-                      <Sun className="h-4 w-4" />
-                    ) : (
-                      <Monitor className="h-4 w-4" />
-                    )}
-                  </span>
-                </div>
+                <Select
+                  id="zorvyn-theme"
+                  value={theme}
+                  onChange={(e) => setTheme(e.target.value)}
+                  className="w-full min-w-0 text-xs md:w-[8.5rem] md:text-sm"
+                >
+                  <option value="system">System</option>
+                  <option value="light">Light</option>
+                  <option value="dark">Dark</option>
+                </Select>
               </div>
 
               <div className="flex min-w-0 flex-col gap-1">
