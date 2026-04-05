@@ -3,6 +3,7 @@ import { ListOrdered, Search, Download, FileJson, RotateCcw, Pencil, Trash2, Plu
 import Card from '../ui/Card'
 import Input from '../ui/Input'
 import Select from '../ui/Select'
+import FieldLabel from '../ui/FieldLabel'
 import Button from '../ui/Button'
 import Badge from '../ui/Badge'
 import Skeleton from '../ui/Skeleton'
@@ -91,46 +92,90 @@ export default function TransactionsTable({ onAdd, onEdit, onDelete }) {
         </div>
       </div>
 
-      <div className="mt-5 grid grid-cols-1 gap-2 md:grid-cols-4">
-        <div className="relative md:col-span-1">
-          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-violet-400" />
-          <Input
-            className="pl-9"
-            placeholder="Search anything…"
-            value={filters.query}
-            onChange={(e) => setFilters({ query: e.target.value })}
-          />
-        </div>
-        <Select value={filters.type} onChange={(e) => setFilters({ type: e.target.value })}>
-          <option value="all">All types</option>
-          <option value="income">Income</option>
-          <option value="expense">Expense</option>
-        </Select>
-        <Select value={filters.category} onChange={(e) => setFilters({ category: e.target.value })}>
-          <option value="all">All categories</option>
-          {categories.map((c) => (
-            <option key={c.id} value={c.id}>
-              {c.label}
-            </option>
-          ))}
-        </Select>
-        <div className="flex gap-2">
-          <Select
-            value={`${filters.sortBy}:${filters.sortDir}`}
-            onChange={(e) => {
-              const [sortBy, sortDir] = e.target.value.split(':')
-              setFilters({ sortBy, sortDir })
-            }}
-          >
-            <option value="date:desc">Sort: Date (newest)</option>
-            <option value="date:asc">Sort: Date (oldest)</option>
-            <option value="amount:desc">Sort: Amount (high → low)</option>
-            <option value="amount:asc">Sort: Amount (low → high)</option>
-          </Select>
-          <Button variant="ghost" onClick={resetFilters} className="shrink-0">
-            <RotateCcw className="h-4 w-4" />
-            Reset
-          </Button>
+      <div className="mt-5">
+        <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 md:hidden">
+          Filters
+        </p>
+        <div className="grid grid-cols-2 gap-x-3 gap-y-3 md:grid-cols-4 md:gap-2">
+          <div className="col-span-2 flex min-w-0 flex-col gap-1 md:col-span-1">
+            <FieldLabel htmlFor="tx-filter-search">Search</FieldLabel>
+            <div className="relative">
+              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-violet-400" />
+              <Input
+                id="tx-filter-search"
+                className="pl-9 text-sm"
+                placeholder="Search…"
+                value={filters.query}
+                onChange={(e) => setFilters({ query: e.target.value })}
+              />
+            </div>
+          </div>
+
+          <div className="flex min-w-0 flex-col gap-1">
+            <FieldLabel htmlFor="tx-filter-type">Type</FieldLabel>
+            <Select
+              id="tx-filter-type"
+              value={filters.type}
+              onChange={(e) => setFilters({ type: e.target.value })}
+              className="w-full min-w-0 text-sm"
+            >
+              <option value="all">All types</option>
+              <option value="income">Income</option>
+              <option value="expense">Expense</option>
+            </Select>
+          </div>
+
+          <div className="flex min-w-0 flex-col gap-1">
+            <FieldLabel htmlFor="tx-filter-category">Category</FieldLabel>
+            <Select
+              id="tx-filter-category"
+              value={filters.category}
+              onChange={(e) => setFilters({ category: e.target.value })}
+              className="w-full min-w-0 text-sm"
+            >
+              <option value="all">All categories</option>
+              {categories.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.label}
+                </option>
+              ))}
+            </Select>
+          </div>
+
+          <div className="col-span-2 grid grid-cols-2 gap-x-3 gap-y-0 md:col-span-1 md:flex md:min-w-0 md:items-end md:gap-2">
+            <div className="flex min-w-0 flex-col gap-1 md:min-w-0 md:flex-1">
+              <FieldLabel htmlFor="tx-filter-sort">Sort by</FieldLabel>
+              <Select
+                id="tx-filter-sort"
+                value={`${filters.sortBy}:${filters.sortDir}`}
+                onChange={(e) => {
+                  const [sortBy, sortDir] = e.target.value.split(':')
+                  setFilters({ sortBy, sortDir })
+                }}
+                className="w-full min-w-0 text-sm"
+              >
+                <option value="date:desc">Date · Newest</option>
+                <option value="date:asc">Date · Oldest</option>
+                <option value="amount:desc">Amount · High</option>
+                <option value="amount:asc">Amount · Low</option>
+              </Select>
+            </div>
+            <div className="flex min-w-0 flex-col gap-1">
+              <FieldLabel as="span" className="md:hidden">
+                Reset
+              </FieldLabel>
+              <Button
+                variant="ghost"
+                type="button"
+                onClick={resetFilters}
+                className="h-10 w-full shrink-0 px-2 md:w-auto"
+                aria-label="Reset all filters"
+              >
+                <RotateCcw className="h-4 w-4" />
+                Reset
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
 
