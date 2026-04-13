@@ -43,7 +43,7 @@ export default function TopBar({ onAdd }) {
           </div>
           <div className="min-w-0 pt-0.5">
             <div className="truncate text-base font-bold tracking-tight text-slate-900 dark:text-white">
-              Zorvyn{' '}
+              FinFlow{' '}
               <span className="bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text font-bold text-transparent dark:from-violet-400 dark:to-fuchsia-400">
                 Finance
               </span>
